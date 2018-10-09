@@ -1,8 +1,8 @@
 {
   "name": "luffy-pusher",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "pusher",
-  "main": "dist/echo.js",
+  "main": "dist/pusher.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=production",

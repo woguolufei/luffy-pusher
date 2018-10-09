@@ -40,3 +40,5 @@ export class Pusher {
         }
     }
 }
+
+window.Pusher = Pusher;

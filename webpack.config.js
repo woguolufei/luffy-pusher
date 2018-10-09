@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        echo: './src/pusher.js',
+        pusher: './src/pusher.js',
         test: './src/test.js'
     },
     devtool: 'inline-source-map',
