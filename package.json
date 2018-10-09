@@ -1,6 +1,6 @@
 {
   "name": "luffy-pusher",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "pusher",
   "main": "dist/pusher.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "webpack --mode=production",
     "watch": "webpack --watch --mode=development"
   },
-  "repository": "https://github.com/woguolufei/pusher",
+  "repository": "https://github.com/woguolufei/luffy-pusher",
   "author": "luffy",
   "license": "MIT",
   "dependencies": {
