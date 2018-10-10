@@ -1,6 +1,6 @@
 {
   "name": "luffy-pusher",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "pusher",
   "main": "dist/pusher.js",
   "scripts": {
