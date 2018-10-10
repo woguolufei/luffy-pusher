@@ -42,11 +42,6 @@ export class Socket extends Dispatcher {
             console.error(e.error)
         });
 
-        //订阅成功
-        /*this.bind('subscribe_success', (e) => {
-
-        });*/
-
         this.send({
             event: 'authorization'
         });
@@ -73,7 +68,12 @@ export class Socket extends Dispatcher {
         let event = eData.event;
         let data = eData.data;
 
-        this.emit(event, data);
+        if (eData.channel !== undefined) {
+            this.pusher.channels.find(eData.channel).emit(event, data);
+        } else {
+            this.emit(event, data);
+        }
+
     }
 
     send(json) {

@@ -1,6 +1,7 @@
 import {Socket} from './connection/socket';
 import {Dispatcher} from './events/dispatcher';
-import {ChannelsMannager} from "./channels/channels_mannager";
+import {Mannager} from "./channels/mannager";
+import axios from "axios";
 
 export class Pusher {
     constructor(app_key, options) {
@@ -9,7 +10,7 @@ export class Pusher {
         this.key = app_key;
         this.options = options || {};
         this.dispatcher = new Dispatcher();
-        this.channels = new ChannelsMannager();
+        this.channels = new Mannager();
 
         this.connect();
     }
@@ -19,7 +20,7 @@ export class Pusher {
     }
 
     subscribe(channel_name) {
-        this.channels.add(channel_name, this);
+        return this.channels.add(channel_name, this);
     }
 
     unsubscribe(channel_name) {
@@ -38,6 +39,23 @@ export class Pusher {
         if (key !== 'a82393d886a0e6ddfae5') {
             throw "你的密钥不正确!";
         }
+    }
+
+    auth(name, callback) {
+        axios.get('http://tests.test/api/pusher/auth', {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + this.options.token,
+            },
+            params: {
+                channel_name: name,
+                socket_id: this.getSocketId()
+            }
+        }).then((e) => {
+            callback(e)
+        }).catch((e) => {
+            console.error('私有频道权限不足!');
+        });
     }
 }
 

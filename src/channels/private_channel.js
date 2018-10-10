@@ -1,38 +1,29 @@
-import {Channel} from "./channel";
-import axios from 'axios';
+import {Dispatcher} from "../events/dispatcher";
 
-export class PrivateChannel extends Channel {
+export class PrivateChannel extends Dispatcher {
     constructor(name, pusher) {
-        super(name, pusher);
+        super();
 
+        this.name = name;
+        this.pusher = pusher;
         this.auth = null;
+
+        if (this.pusher.socket.state == 1) {
+            this.subscribe();
+        }
     }
 
     subscribe() {
-        if (this.auth === null) {
-            axios.get('http://tests.test/api/pusher/auth', {
-                params: {
-                    channel_name: this.name,
-                    socket_id: this.pusher.getSocketId()
+        this.pusher.auth(this.name, (e) => {
+            this.auth = e.data.auth;
+
+            this.pusher.send({
+                event: 'subscribe',
+                data: {
+                    channel: this.name,
+                    auth: this.auth
                 }
-            }).then((e) => {
-                this.auth = e.data.auth;
-                this.pusher.send({
-                    event: 'subscribe',
-                    data: {
-                        channel: this.name,
-                        auth: this.auth
-                    }
-                });
-            }).catch((e) => {
-                console.error('私有频道权限不足!');
             });
-        }
-        /*this.pusher.socket.send({
-            event: 'subscribe',
-            data: {
-                channel: this.name
-            }
-        });*/
+        });
     }
 }

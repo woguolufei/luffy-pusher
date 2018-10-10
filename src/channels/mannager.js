@@ -2,7 +2,7 @@ import {Channel} from "./channel";
 import {PresenceChannel} from "./presence_channel";
 import {PrivateChannel} from "./private_channel";
 
-export class ChannelsMannager {
+export class Mannager {
     constructor() {
         this.channels = {};
     }
